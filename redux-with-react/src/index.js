@@ -6,7 +6,11 @@ import * as serviceWorker from "./serviceWorker";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
+
+import thunk from "redux-thunk";
 import reducer from "./store/reducer";
+
+const store = createStore(reducer, applyMiddleware(thunk));
 
 // import reducerA from "./store/reducerA";
 // import reducerB from "./store/reducerB";
@@ -15,19 +19,6 @@ import reducer from "./store/reducer";
 //   reducerA,
 //   reducerB
 // });
-
-const logAction = store => {
-  return next => {
-    return action => {
-      const result = next(action);
-      console.log("Caught in the middle ware ", result);
-      return result;
-    };
-  };
-};
-
-const store = createStore(reducer, applyMiddleware(logAction));
-
 ReactDOM.render(
   <Provider store={store}>
     <App />

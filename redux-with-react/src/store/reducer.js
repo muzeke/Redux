@@ -1,6 +1,7 @@
 const initialState = {
   age: 21,
-  history: []
+  history: [],
+  loading: false
 };
 const reducer = (state = initialState, action) => {
   const newState = { ...state };
@@ -9,6 +10,7 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       age: state.age + action.value,
+      loading: false,
       history: state.history.concat({
         age: state.age + action.value,
         id: Math.random()
@@ -30,6 +32,10 @@ const reducer = (state = initialState, action) => {
       ...state,
       history: state.history.filter(h => h.id !== action.key)
     };
+  }
+
+  if (action.type === "LOADING") {
+    newState.loading = true;
   }
   return newState;
 };

@@ -177,3 +177,47 @@ const mapDispatchToProps = dispatch => {
 ### Redux Middlewares
 
 #### Redux Thunk
+
+Installation:
+
+```npm
+npm install redux thunk --save
+```
+
+In the root script
+
+```js
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+
+import thunk from "redux-thunk";
+import reducer from "./store/reducer";
+
+const store = createStore(reducer, applyMiddleware(thunk));
+```
+
+#### Redux Saga
+
+Installation:
+
+```npm
+ npm install redux-saga
+```
+
+Boilerplate:
+
+```js
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
+import reducer from "./reducers";
+import rootSaga from "./sagas";
+
+//create the saga middleware
+const sagaMiddleware = createSagaMiddleware();
+
+//mount it on the redux store
+const store = createStore(reducer, applyMiddleware(sagaMiddleware));
+
+//run the saga
+sagaMiddleware.run(rootSaga);
+```
