@@ -11,7 +11,7 @@ Starting with Redux
 - He wanted a minimal API that improved the application structure and had better tools. At 2kb, Redux makes data management and debugging a whole lot easier.
 - Redux was inspired by Flux and Elm.
 
-### Quick :
+### Redux without React :
 
 Get Store from redux (with Node.JS)
 
@@ -59,3 +59,121 @@ Redux Action(s) using dispatch
 ```js
 store.dispatch({});
 ```
+
+### Redux with React
+
+Using `create-react-app`
+
+```npm
+  npm install redux --save
+  npm install react-redux --save
+```
+
+In the root script :
+
+```js
+import { Provider } from "react-redux";
+
+import { createStore } from "redux";
+import reducer from "./store/reducer";
+
+const store = createStore(reducer);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
+```
+
+For Every Component :
+
+```js
+import { connect } from "react-redux";
+
+//functions mapStateToProps and mapDispatchToProps are user defined
+
+const mapStateToProps = state => {
+  return {
+    age: state.age,
+    history: state.history
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleIncrement: () =>
+      dispatch({
+        type: "AGE_UP",
+        value: 5
+      }),
+    handleDecrement: () =>
+      dispatch({
+        type: "AGE_DOWN",
+        value: 5
+      }),
+    handleRemove: item => {
+      dispatch({
+        type: "REMOVE_HISTORY_ITEM",
+        key: item.id
+      });
+    }
+  };
+}; //mapDispatchToProps
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+```
+
+### Combining Reducers
+
+In the root script as well
+
+```js
+//import combine reducers
+import { createStore, combineReducers } from "redux";
+//import reducer from "./store/reducer";
+
+import reducerA from "./store/reducerA";
+import reducerB from "./store/reducerB";
+
+const rootReducer = combineReducers({
+  reducerA,
+  reducerB
+});
+
+const store = createStore(rootReducer);
+```
+
+In a component
+
+```js
+const mapStateToProps = state => {
+  return {
+    a: state.reducerA.a,
+    b: state.reducerB.b
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateA: b =>
+      dispatch({
+        type: "UPDATE_A",
+        b: b
+      }),
+    updateB: a =>
+      dispatch({
+        type: "UPDATE_B",
+        a: a
+      })
+  };
+};
+```
+
+### Redux Middlewares
+
+#### Redux Thunk
