@@ -1,0 +1,22 @@
+{
+  "name": "reduxTuts",
+  "version": "1.0.0",
+  "description": "Starting with Redux",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muzeke/Redux.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/muzeke/Redux/issues"
+  },
+  "homepage": "https://github.com/muzeke/Redux#readme",
+  "dependencies": {
+    "redux": "^4.0.1"
+  }
+}
